@@ -219,7 +219,7 @@ document.getElementById("exportExcelBtn").addEventListener("click", () => {
     return;
   }
 
-  // Filtrar resultados según categoría seleccionada
+
   const dataToExport = results.filter(r => !selectedCategory || r.categoria === selectedCategory);
 
   if (dataToExport.length === 0) {
@@ -227,7 +227,6 @@ document.getElementById("exportExcelBtn").addEventListener("click", () => {
     return;
   }
 
-  // Preparar datos para Excel
   const excelData = dataToExport.map(r => ({
     "Producto": r.desc,
     "ClaveProdServ": r.clave,
@@ -239,12 +238,11 @@ document.getElementById("exportExcelBtn").addEventListener("click", () => {
     "Receptor": r.receptor
   }));
 
-  // Crear libro de Excel
+
   const ws = XLSX.utils.json_to_sheet(excelData);
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "Conceptos CFDI");
 
-  // Ajustar ancho de columnas
   const colWidths = [
     { wch: 40 }, // Producto
     { wch: 15 }, // ClaveProdServ
@@ -257,13 +255,11 @@ document.getElementById("exportExcelBtn").addEventListener("click", () => {
   ];
   ws['!cols'] = colWidths;
 
-  // Generar nombre de archivo con fecha
   const fecha = new Date().toISOString().split('T')[0];
   const nombreArchivo = selectedCategory 
     ? `CFDI_${selectedCategory.replace(/[^a-z0-9]/gi, '_')}_${fecha}.xlsx`
     : `CFDI_Todos_${fecha}.xlsx`;
 
-  // Descargar archivo
   XLSX.writeFile(wb, nombreArchivo);
 });
 
