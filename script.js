@@ -91,12 +91,12 @@ selectBox.addEventListener("click", () => {
 
 buildCategoryList();
 
-// CARGA OPTIMIZADA DE ARCHIVOS XML
+
 document.getElementById("xmlFiles").addEventListener("change", async (event) => {
   xmlFileContents.length = 0;
   const files = [...event.target.files];
 
-  // Cambiar texto del cuadro de subida
+
   const dropText = document.getElementById("dropAreaText");
   if (files.length > 0) {
     dropText.textContent = `📂 ${files.length} archivos seleccionados`;
@@ -104,14 +104,12 @@ document.getElementById("xmlFiles").addEventListener("change", async (event) => 
     dropText.textContent = "📂 Haz clic aquí o arrastra tus XML";
   }
 
-  // Mostrar indicador de progreso
   const progressDiv = document.createElement("div");
   progressDiv.id = "loadProgress";
   progressDiv.style.cssText = "padding-top: 50px; border-radius: 4px; color: red; font-weight: bold;";
   progressDiv.innerHTML = `<div>Cargando archivos: <span id="progressText">0/${files.length}</span></div>`;
   document.getElementById("processBtn").parentNode.insertBefore(progressDiv, document.getElementById("processBtn"));
 
-  // Procesar archivos en lotes
   const batchSize = 10;
   let loaded = 0;
 
@@ -128,18 +126,18 @@ document.getElementById("xmlFiles").addEventListener("change", async (event) => 
     );
   }
 
-  // Remover indicador de progreso
+  
   setTimeout(() => {
     document.getElementById("loadProgress")?.remove();
   }, 1000);
 });
 
 
-// PROCESAMIENTO OPTIMIZADO EN CHUNKS
+
 document.getElementById("processBtn").addEventListener("click", () => {
   results.length = 0;
 
-  // Mostrar indicador de procesamiento
+ 
  const processDiv = document.createElement("div");
 processDiv.id = "processProgress";
 processDiv.style.cssText = `
@@ -183,7 +181,7 @@ document.getElementById("processBtn").parentNode.insertBefore(
 
   document.getElementById("processBtn").parentNode.insertBefore(processDiv, document.getElementById("processBtn").nextSibling);
 
-  // Usar requestIdleCallback para no bloquear la UI
+ 
   const processInChunks = () => {
     const chunkSize = 20;
     let processed = 0;
@@ -241,14 +239,14 @@ bar.style.width = pct + "%";
   processInChunks();
 });
 
-// RENDERIZADO OPTIMIZADO CON FRAGMENT
+
 function renderTable() {
   const tbody = document.getElementById("resultsBody");
   tbody.innerHTML = "";
 
   const filtered = results.filter(r => !selectedCategory || r.categoria === selectedCategory);
   
-  // Renderizado optimizado con fragmento
+ 
   const fragment = document.createDocumentFragment();
   
   filtered.forEach(r => {
@@ -269,7 +267,7 @@ function renderTable() {
   tbody.appendChild(fragment);
 }
 
-// EXPORTACIÓN A EXCEL
+
 document.getElementById("exportExcelBtn").addEventListener("click", () => {
   if (results.length === 0) {
     alert("No hay datos para exportar. Por favor procesa algunos archivos XML primero.");
