@@ -70,7 +70,7 @@ function renderOptions(list) {
       renderTable();
     };
 
-    optionsContainer.appendChild(div);
+    optionsContainer.appendChild(div); 
   });
 }
 
