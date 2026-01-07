@@ -227,7 +227,7 @@ bar.style.width = pct + "%";
         setTimeout(processChunk, 0);
       } else {
         renderTable();
-        setTimeout(() => {
+        setTimeout(() => { 
           document.getElementById("processProgress")?.remove();
         }, 1000);
       }
